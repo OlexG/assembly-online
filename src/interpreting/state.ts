@@ -15,6 +15,10 @@ export class ProgramState {
   LR: number = 0;
   PC: number = 0;
   currentLine: number = 0;
+  labels: { [key: string]: number } = {};
+  pcToLineNumber : {
+    [key: number]: number
+  } = {};
 
   getAllRegisters(): {name: string, value: number}[] {
     return [
