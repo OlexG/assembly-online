@@ -24,6 +24,43 @@ export class Branches {
       // @ts-ignore
       state.PC = state.labels[destination];
       state.currentLine = state.pcToLineNumber[state.PC];
+    },
+    'BNE': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      if (state.CPSR === 0) {
+        return;
+      }
+      Branches.execute['B'](tokens, state);
+    },
+    'BEQ': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      if (state.CPSR !== 0) {
+        return;
+      }
+      Branches.execute['B'](tokens, state);
+    },
+    'BGT': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      if (state.CPSR <= 0) {
+        return;
+      }
+      Branches.execute['B'](tokens, state);
+    },
+    'BLT': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      if (state.CPSR >= 0) {
+        return;
+      }
+      Branches.execute['B'](tokens, state);
     }
   }
+
 }

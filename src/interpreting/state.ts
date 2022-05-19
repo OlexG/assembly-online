@@ -1,3 +1,5 @@
+export type RegisterType = 'R0' | 'R1' | 'R2' | 'R3' | 'R4' | 'R5' | 'R6' | 'R7' | 'R8' | 'R9' | 'R10' | 'FP' | 'SP' | 'LR' | 'PC';
+
 export class ProgramState {
   R0: number = 0;
   R1: number = 0;
@@ -14,6 +16,8 @@ export class ProgramState {
   SP: number = 0;
   LR: number = 0;
   PC: number = 0;
+    
+  CPSR: number = 0;
   currentLine: number = 0;
   labels: { [key: string]: number } = {};
   pcToLineNumber : {

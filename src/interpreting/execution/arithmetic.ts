@@ -1,4 +1,4 @@
-import { ProgramState } from "../state"
+import { ProgramState, RegisterType } from "../state"
 
 export class Arithmetic {
   static interpret (token: string, state: ProgramState) {
@@ -40,13 +40,20 @@ export class Arithmetic {
       }
       const destination = val1;
       if (Arithmetic.interpret(val3, state) === 'register') {
-        // @ts-ignore
-        val3 = state[val3];
+        
+        val3 = state[val3 as RegisterType];
       } else {
         val3 = Arithmetic.interpret(val3, state);
       }
-      // @ts-ignore
-      state[destination] = state[val2] + val3;
+      state[destination as RegisterType] = state[val2 as RegisterType] + val3;
+      return state[destination as RegisterType];
+    },
+    'ADDS': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      const result = Arithmetic.execute['ADD'](tokens, state);
+      state.CPSR = result; 
     },
     'SUB': function (
       tokens: string[],
@@ -61,13 +68,20 @@ export class Arithmetic {
       }
       const destination = val1;
       if (Arithmetic.interpret(val3, state) === 'register') {
-        // @ts-ignore
-        val3 = state[val3];
+        val3 = state[val3 as RegisterType];
       } else {
         val3 = Arithmetic.interpret(val3, state);
       }
-      // @ts-ignore
-      state[destination] = state[val2] - val3;
+      state[destination as RegisterType] = state[val2 as RegisterType] - val3;
+      
+      return state[destination as RegisterType];
+    },
+    'SUBS': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      const result = Arithmetic.execute['SUB'](tokens, state);
+      state.CPSR = result; 
     },
     'MUL': function (
       tokens: string[],
@@ -82,13 +96,22 @@ export class Arithmetic {
       }
       const destination = val1;
       if (Arithmetic.interpret(val3, state) === 'register') {
-        // @ts-ignore
-        val3 = state[val3];
+        
+        val3 = state[val3 as RegisterType];
       } else {
         val3 = Arithmetic.interpret(val3, state);
       }
-      // @ts-ignore
-      state[destination] = state[val2] * val3;
+      
+      state[destination as RegisterType] = state[val2 as RegisterType] * val3;
+      
+      return state[destination as RegisterType];
+    },
+    'MULS': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      const result = Arithmetic.execute['MUL'](tokens, state);
+      state.CPSR = result; 
     },
     'MOV': function (
       tokens: string[],
@@ -99,13 +122,22 @@ export class Arithmetic {
         throw new Error('Destination is not a register');
       }
       if (Arithmetic.interpret(val2, state) === 'register') {
-        // @ts-ignore
-        val2 = state[val2];
+        
+        val2 = state[val2 as RegisterType];
       } else {
         val2 = Arithmetic.interpret(val2, state);
       }
-      // @ts-ignore
-      state[val1] = val2;
+      
+      state[val1 as RegisterType] = val2;
+      
+      return state[val1 as RegisterType];
+    },
+    'MOVS': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      const result = Arithmetic.execute['MOV'](tokens, state);
+      state.CPSR = result; 
     },
     'AND': function (
       tokens: string[],
@@ -120,13 +152,22 @@ export class Arithmetic {
       }
       const destination = val1;
       if (Arithmetic.interpret(val3, state) === 'register') {
-        // @ts-ignore
-        val3 = state[val3];
+        
+        val3 = state[val3 as RegisterType];
       } else {
         val3 = Arithmetic.interpret(val3, state);
       }
-      // @ts-ignore
-      state[destination] = state[val2] & val3;
+      
+      state[destination as RegisterType] = state[val2 as RegisterType] & val3;
+      
+      return state[destination as RegisterType];
+    },
+    'ANDS': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      const result = Arithmetic.execute['AND'](tokens, state);
+      state.CPSR = result; 
     },
     'ORR': function (
       tokens: string[],
@@ -141,13 +182,37 @@ export class Arithmetic {
       }
       const destination = val1;
       if (Arithmetic.interpret(val3, state) === 'register') {
-        // @ts-ignore
-        val3 = state[val3];
+        
+        val3 = state[val3 as RegisterType];
       } else {
         val3 = Arithmetic.interpret(val3, state);
       }
-      // @ts-ignore
-      state[destination] = state[val2] | val3;
+      
+      state[destination as RegisterType] = state[val2 as RegisterType] | val3;
+      
+      return state[destination as RegisterType];
+    },
+    'ORRS': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      const result = Arithmetic.execute['ORR'](tokens, state);
+      state.CPSR = result; 
+    },
+    'CMP': function (
+      tokens: string[],
+      state: ProgramState
+    ) {
+      let [operation, val1, val2]: any[] = tokens;
+      let numeric1 = Arithmetic.interpret(val1, state);
+      let numeric2 = Arithmetic.interpret(val2, state);
+      if (numeric1 === 'register') {
+        numeric1 = state[val1 as RegisterType];
+      }
+      if (numeric2 === 'register') {
+        numeric2 = state[val2 as RegisterType];
+      }
+      state.CPSR = numeric1 as number - (numeric2 as number);
     }
   }
 

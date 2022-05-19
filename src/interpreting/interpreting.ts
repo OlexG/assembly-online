@@ -10,9 +10,20 @@ export default class Interpreter {
     'MOV': 3,
     'AND': 4,
     'ORR': 4,
+    'ADDS': 4,
+    'SUBS': 4,
+    'MULS': 4,
+    'MOVS': 3,
+    'ANDS': 4,
+    'ORRS': 4,
+    'CMP': 3,
   }
   static branchInstructions = {
-    'B': 2
+    'B': 2,
+    'BNE': 2,
+    'BEQ': 2,
+    'BGT': 2,
+    'BLT': 2,
   }
 
   static arithmeticInstruction(
