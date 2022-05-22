@@ -1,17 +1,16 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ProgramState } from './interpreting/state';
-import State from './State';
 
 type IProps = {
   value: string
-  setValue: (value: string) => void
+  setValue: React.Dispatch<React.SetStateAction<string>>
   state: ProgramState
 }
 
 export default function TextArea({
   value,
   setValue,
-  state
+  state,
 }: IProps) {
   const textArea = useRef<HTMLTextAreaElement>(null);
   const lineBar = useRef<HTMLDivElement>(null);
@@ -31,19 +30,24 @@ export default function TextArea({
         {
           Array.from(Array(lineCount).keys()).map(
             (lineNumber) => (
-              <div key={lineNumber} className={`text-center text-black ${lineNumber === state.currentLine - 1 ? 'bg-green-300' : ''}`}>
+              <div
+                key={lineNumber}
+                className={`text-center text-black ${lineNumber === state.currentLine - 1 ? 'bg-green-300' : ''} ${
+                  lineNumber === state.error.line ? 'bg-red-300' : ''
+                }`}
+              >
                 {lineNumber}
               </div>
-            )
+            ),
           )
         }
       </div>
-      <textarea 
+      <textarea
         ref={textArea}
         value={value}
         onChange={handleChange}
-        className="text-black text-lg border-gray-600 border p-4 pb-6 rounded-r-lg h-full w-full">
-      </textarea>
+        className="text-black text-lg border-gray-600 border p-4 pb-6 rounded-r-lg h-full w-full"
+      />
     </div>
   );
 }

@@ -1,9 +1,14 @@
-import { ProgramState } from "../state";
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
+import { ProgramState } from '../state';
 
-export class Branches {
-  static interpret (token: string, state: ProgramState) {
+export default class Branches {
+  static interpret(token: string, state: ProgramState) {
     if (state.isRegister(token)) {
       return 'register';
+    }
+    if (Object.keys(state.builtInFunctions).includes(token)) {
+      return 'function';
     }
     if (!Object.keys(state.labels).includes(token)) {
       throw new Error(`Label ${token} not found`);
@@ -12,11 +17,16 @@ export class Branches {
   }
 
   static execute = {
-    'B': function (
+    B(
       tokens: string[],
-      state: ProgramState
+      state: ProgramState,
     ) {
-      let [operation, val1]: any[] = tokens;
+      const [operation, val1]: any[] = tokens;
+      if (Branches.interpret(val1, state) === 'function') {
+        // @ts-ignore
+        state.builtInFunctions[val1]();
+        return;
+      }
       if (Branches.interpret(val1, state) !== 'label') {
         throw new Error('Destination is not a label');
       }
@@ -25,42 +35,41 @@ export class Branches {
       state.PC = state.labels[destination];
       state.currentLine = state.pcToLineNumber[state.PC];
     },
-    'BNE': function (
+    BNE(
       tokens: string[],
-      state: ProgramState
+      state: ProgramState,
     ) {
       if (state.CPSR === 0) {
         return;
       }
-      Branches.execute['B'](tokens, state);
+      Branches.execute.B(tokens, state);
     },
-    'BEQ': function (
+    BEQ(
       tokens: string[],
-      state: ProgramState
+      state: ProgramState,
     ) {
       if (state.CPSR !== 0) {
         return;
       }
-      Branches.execute['B'](tokens, state);
+      Branches.execute.B(tokens, state);
     },
-    'BGT': function (
+    BGT(
       tokens: string[],
-      state: ProgramState
+      state: ProgramState,
     ) {
       if (state.CPSR <= 0) {
         return;
       }
-      Branches.execute['B'](tokens, state);
+      Branches.execute.B(tokens, state);
     },
-    'BLT': function (
+    BLT(
       tokens: string[],
-      state: ProgramState
+      state: ProgramState,
     ) {
       if (state.CPSR >= 0) {
         return;
       }
-      Branches.execute['B'](tokens, state);
-    }
-  }
-
+      Branches.execute.B(tokens, state);
+    },
+  };
 }
