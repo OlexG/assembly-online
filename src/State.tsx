@@ -30,6 +30,16 @@ export default function State({
         return e;
       });
     }
+    if (state.error.message && !state.error.outputed) {
+      setProgramText((e) => [...e, {
+        message: (state.error.message as Error).message,
+        color: 'red',
+      }]);
+      setState((e) => {
+        e.error.outputed = true;
+        return e;
+      });
+    }
     if (state.PC === 0) {
       // state was reset
       setProgramText([]);
