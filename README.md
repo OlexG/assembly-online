@@ -1,17 +1,17 @@
 # Assembly-Online
 ## Example Fibonacci Program
 
-MOV R0, #1
-MOV R1, #1
-fib:
-MOV R2, R0
-ADD R0, R0, R1
-MOV R1, R2
-B print
-CMP R0, #40
-BGT exit
-B fib
-exit:
+MOV R0, #1 \
+MOV R1, #1 \
+fib: \
+MOV R2, R0 \
+ADD R0, R0, R1 \
+MOV R1, R2 \
+B print \
+CMP R0, #40 \
+BGT exit \
+B fib \
+exit: \
 
 
 ## Instruction Set
