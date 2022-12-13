@@ -47,38 +47,38 @@ function App() {
   }
 
   return (
-    <div className="h-screen flex flex-col justify-end bg-gray-800 text-white text-lg">
-      <div className="flex flex-row h-1/7 justify-center">
+    <div className="lg:h-screen h-fulls flex flex-col justify-end bg-gray-800 text-white text-lg">
+      <div className="flex flex-row flex-wrap lg:h-1/7 h-80 justify-center h-full">
         <Info />
         <button
-          className="m-4 shrink-0 w-40 border-gray-600 bg-gray-700 border-2 rounded"
+          className="m-4 shrink-0 w-40 h-20 border-gray-600 bg-gray-700 border-2 rounded"
           onClick={startProgram}
           type="button"
         >
           Run
         </button>
         <button
-          className="m-4 shrink-0 w-40 border-gray-600 bg-gray-700 border-2 rounded"
+          className="m-4 shrink-0 w-40 h-20 border-gray-600 bg-gray-700 border-2 rounded"
           onClick={pauseProgram}
           type="button"
         >
           Pause
         </button>
         <button
-          className="m-4 shrink-0 w-40 border-gray-600 bg-gray-700 border-2 rounded"
+          className="m-4 shrink-0 w-40 h-20 border-gray-600 bg-gray-700 border-2 rounded"
           onClick={advanceProgram}
           type="button"
         >
           Advance
         </button>
         <button
-          className="m-4 shrink-0 w-40 border-gray-600 bg-gray-700 border-2 p-4 rounded"
+          className="m-4 shrink-0 w-40 h-20 border-gray-600 bg-gray-700 border-2 p-4 rounded"
           onClick={resetProgram}
           type="button"
         >
           Reset
         </button>
-        <div className="text-sm m-4 shrink-0 w-40 border-gray-600 bg-gray-700 border-2 rounded">
+        <div className="text-sm m-4 shrink-0 w-40 h-20 border-gray-600 bg-gray-700 border-2 rounded">
           <span className="p-0.75 px-2">Time between steps:</span>
           <input
             className="w-20 mx-2 rounded text-black mt-2.5 px-1"
@@ -89,7 +89,7 @@ function App() {
           />
         </div>
       </div>
-      <div className="flex flex-row w-screen h-6/7">
+      <div className="flex lg:flex-row flex-col w-screen h-6/7">
         <TextArea
           value={programText}
           setValue={setProgramText}

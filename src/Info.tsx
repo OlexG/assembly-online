@@ -5,14 +5,19 @@ export default function Info() {
   return (
     <>
       <button
-        className="m-4 shrink-0 w-40 border-gray-600 bg-gray-700 border-2 rounded"
+        className="m-4 shrink-0 w-40 h-20 border-gray-600 bg-gray-700 border-2 rounded"
         onClick={() => setOpened(!opened)}
         type="button"
       >
         Info
       </button>
       {opened && (
-        <div className="absolute top-28 left-4 bg-gray-500 w-96 rounded p-5 h-96 overflow-y-scroll">
+        <div className="absolute top-28 left-4 bg-gray-500 lg:w-96 w-56 rounded p-5 h-96 overflow-y-scroll">
+          <button type="button" className="absolute top-0 right-0 p-4 bg-red-400" onClick={() => setOpened(!opened)}>
+            <span className="font-semibold ">
+              X
+            </span>
+          </button>
           <span className="font-semibold">
             Example Fibonacci Program
           </span>

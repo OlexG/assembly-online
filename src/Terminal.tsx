@@ -11,7 +11,7 @@ export default function Terminal({
   programText,
 }: IProps) {
   return (
-    <div className="h-1/2 bg-black rounded-b p-2 overflow-y-auto">
+    <div className="lg:h-1/2 h-96 bg-black rounded-b p-2 overflow-y-auto">
       {
         programText.map((line, index) => (
           <p key={line + index.toString()} className="text-white text-sm">

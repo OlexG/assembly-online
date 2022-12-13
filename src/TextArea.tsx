@@ -25,7 +25,7 @@ export default function TextArea({
     }
   }
   return (
-    <div className="w-1/2 h-full p-4 flex flex-row">
+    <div className="lg:w-1/2 w-full h-full p-4 flex flex-row">
       <div ref={lineBar} className="lineBar border-gray-600 border py-4 bg-white w-12 rounded-l-lg overflow-y-auto">
         {
           Array.from(Array(lineCount).keys()).map(
@@ -46,7 +46,7 @@ export default function TextArea({
         ref={textArea}
         value={value}
         onChange={handleChange}
-        className="text-black text-lg border-gray-600 border p-4 pb-6 rounded-r-lg h-full w-full"
+        className="text-black text-lg border-gray-600 border p-4 pb-6 rounded-r-lg lg:h-full w-full"
       />
     </div>
   );

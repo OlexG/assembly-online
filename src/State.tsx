@@ -47,12 +47,12 @@ export default function State({
   }, [state, watchVariable, setWatchVariable, setState]);
 
   return (
-    <div className="border-gray-600 border-2 m-4 rounded w-1/2">
-      <div className="w-10 h-1/2 flex flex-col flex-wrap">
+    <div className="border-gray-600 border-2 m-4 rounded lg:w-1/2 w-3/4 mx-auto">
+      <div className="lg:w-10 lg:h-1/2 flex lg:flex-col flex-row flex-wrap">
         {
         state.getAllRegisters().map(
           (register) => (
-            <div key={register.name} className="m-2 w-20 h-20 flex flex-row text-center items-center justify-center border-gray-600 bg-gray-700 border-2 rounded">
+            <div key={register.name} className="lg:m-2 m-4 w-20 h-20 flex flex-row text-center items-center justify-center border-gray-600 bg-gray-700 border-2 rounded">
               {register.name}
               :
               {' '}
